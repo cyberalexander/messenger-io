@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: messenger-io
+server:
+  port: 8585
+logging:
+  level:
+    root: info
+
+twilio:
+  account_sid: #SECURED#
+  auth_token: #SECURED#
+  from_number: #SECURED#
+
