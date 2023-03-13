@@ -24,14 +24,30 @@
 
 package com.cyberalexander.messengerio;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.twilio.Twilio;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 
-@SpringBootApplication
-public class MessengerIoApplication {
+/**
+ * Created : 13/03/2023 09:21
+ * Project : messenger-io
+ * IDE : IntelliJ IDEA
+ *
+ * @author Aliaksandr_Leanovich
+ * @version 1.0
+ */
+@Slf4j
+@Configuration
+public class TwilioInitializer {
 
-    public static void main(String[] args) {
-        SpringApplication.run(MessengerIoApplication.class, args);
+    private TwilioConfiguration twilioConfiguration;
+
+    @Autowired
+    public TwilioInitializer(TwilioConfiguration twilioConfiguration) {
+        this.twilioConfiguration = twilioConfiguration;
+        Twilio.init(this.twilioConfiguration.getAccountSid(), this.twilioConfiguration.getAuthToken());
+        log.info("Twilio initialised with SID [{}]", this.twilioConfiguration.getAccountSid());
     }
-
 }

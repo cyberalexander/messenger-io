@@ -24,14 +24,29 @@
 
 package com.cyberalexander.messengerio;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@SpringBootApplication
-public class MessengerIoApplication {
+/**
+ * Spring Configuration Class responsible for Twilio related properties management and distribution.
+ * <p>
+ * Created : 13/03/2023 09:15
+ * Project : messenger-io
+ * IDE : IntelliJ IDEA
+ *
+ * @author Aliaksandr_Leanovich
+ * @version 1.0
+ */
+@Data
+@Configuration
+@ConfigurationProperties("twilio")
+public class TwilioConfiguration {
 
-    public static void main(String[] args) {
-        SpringApplication.run(MessengerIoApplication.class, args);
-    }
-
+    private String accountSid;
+    private String authToken;
+    private String fromNumber;
 }
+
