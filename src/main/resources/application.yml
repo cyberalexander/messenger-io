@@ -8,7 +8,7 @@ logging:
     root: info
 
 twilio:
-  account_sid: AC8482ab98ecea707b0c5fd637a961fcae
-  auth_token: 5f8134e4024bb1c9c8da97119bcd0674
+  account_sid: #SECURED#
+  auth_token: #SECURED#
   from_number: #SECURED#
 
