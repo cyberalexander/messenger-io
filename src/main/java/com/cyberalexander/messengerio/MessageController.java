@@ -24,28 +24,35 @@
 
 package com.cyberalexander.messengerio;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created : 14/03/2023 09:26
+ * Created : 14/03/2023 09:33
  * Project : messenger-io
  * IDE : IntelliJ IDEA
  *
  * @author Aliaksandr_Leanovich
  * @version 1.0
  */
-@Data
+@RestController
 @AllArgsConstructor
-public class MessageRequest {
+@RequestMapping("api/v1/sms")
+public class MessageController {
 
-    @JsonProperty("destinationPhoneNumber")
-    @NotBlank(message = "Phone Number cannot be blank")
-    public final String destinationPhoneNumber;
+    private final MessageSender messageSender;
 
-    @JsonProperty("message")
-    @NotBlank(message = "Message cannot be blank")
-    private final String message;
+    @PostMapping
+    public ResponseEntity<String> sendMessage(@Valid @RequestBody MessageRequest request) {
+        boolean result = messageSender.sendMessage(request);
+        return new ResponseEntity<>(
+                "Operation executed with the result : [" + result + "]",
+                result ? HttpStatus.CREATED : HttpStatus.CONFLICT);
+    }
 }
