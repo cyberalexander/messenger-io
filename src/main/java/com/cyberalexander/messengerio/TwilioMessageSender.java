@@ -31,6 +31,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
+ * The Service is aimed to provide integration with Twilio SMS API to send the messages to reseipient(s).
+ * <p>
  * Created : 14/03/2023 09:28
  * Project : messenger-io
  * IDE : IntelliJ IDEA

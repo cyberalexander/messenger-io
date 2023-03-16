@@ -25,7 +25,6 @@
 package com.cyberalexander.messengerio;
 
 import com.twilio.Twilio;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +41,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TwilioInitializer {
 
-    private TwilioConfiguration twilioConfiguration;
+    private final TwilioConfiguration twilioConfiguration;
 
     @Autowired
     public TwilioInitializer(TwilioConfiguration twilioConfiguration) {
