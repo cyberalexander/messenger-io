@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Project : messenger-io
  * IDE : IntelliJ IDEA
  *
- * @author Aliaksandr_Leanovich
+ * @author CyberAlexander
  * @version 1.0
  */
 @RestController

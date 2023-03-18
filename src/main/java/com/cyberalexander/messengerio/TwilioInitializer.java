@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Configuration;
  * Project : messenger-io
  * IDE : IntelliJ IDEA
  *
- * @author Aliaksandr_Leanovich
+ * @author CyberAlexander
  * @version 1.0
  */
 @Slf4j

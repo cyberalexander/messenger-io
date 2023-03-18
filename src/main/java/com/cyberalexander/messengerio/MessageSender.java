@@ -29,7 +29,7 @@ package com.cyberalexander.messengerio;
  * Project : messenger-io
  * IDE : IntelliJ IDEA
  *
- * @author Aliaksandr_Leanovich
+ * @author CyberAlexander
  * @version 1.0
  */
 public interface MessageSender {
