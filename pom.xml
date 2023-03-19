@@ -82,6 +82,11 @@
             <artifactId>twilio</artifactId>
             <version>${twilio.sdk.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.jeasy</groupId>
+            <artifactId>easy-random-core</artifactId>
+            <version>5.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -24,19 +24,27 @@
 
 package com.cyberalexander.messengerio;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
+import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 /**
  * {@link org.mockito.Mockito#mock(Class)} - allows us to create a mock object of a class or an interface.
@@ -63,9 +71,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles(value = {"test"})
 @WebMvcTest(controllers = {MessageController.class})
 class MessageControllerTests {
+    private static final EasyRandom R = new EasyRandom();
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @MockBean
     private MessageSender messageSender;
@@ -80,6 +92,32 @@ class MessageControllerTests {
     }
 
     @Test
-    void sendMessage() {
+    @SneakyThrows
+    void sendMessage_whenMessageSent() {
+        MessageRequest request = R.nextObject(MessageRequest.class);
+
+        Mockito.when(messageSender.sendMessage(request)).thenReturn(Boolean.TRUE);
+
+        mockMvc.perform(post("/api/v1/sms")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.content()
+                        .string("Operation executed with the result : [true]"));
+    }
+
+    @Test
+    @SneakyThrows
+    void sendMessage_whenMessageWasNotSent() {
+        MessageRequest request = R.nextObject(MessageRequest.class);
+
+        Mockito.when(messageSender.sendMessage(request)).thenReturn(Boolean.FALSE);
+
+        mockMvc.perform(post("/api/v1/sms")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(MockMvcResultMatchers.status().isConflict())
+                .andExpect(MockMvcResultMatchers.content()
+                        .string("Operation executed with the result : [false]"));
     }
 }
