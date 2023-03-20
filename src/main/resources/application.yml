@@ -6,6 +6,7 @@ server:
 logging:
   level:
     root: info
+    com.cyberalexander.messengerio: debug
 
 twilio:
   account_sid: #SECURED#

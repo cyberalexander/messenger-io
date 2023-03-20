@@ -26,6 +26,7 @@ package com.cyberalexander.messengerio;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +42,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author CyberAlexander
  * @version 1.0
  */
+@Slf4j
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/v1/sms")
@@ -51,6 +53,7 @@ public class MessageController {
     @PostMapping
     public ResponseEntity<String> sendMessage(@Valid @RequestBody MessageRequest request) {
         boolean result = messageSender.sendMessage(request);
+        log.debug("The result of send message operations is {}", result);
         return new ResponseEntity<>(
                 "Operation executed with the result : [" + result + "]",
                 result ? HttpStatus.CREATED : HttpStatus.CONFLICT);
